@@ -11,7 +11,9 @@ Prerequisites:
 
  1. Vagrant - tool for automation of virtual machine deployment. Download and install vagrant from https://www.vagrantup.com/
  2. Virtualbox - VM stack. Download and install virtualbox (version 5.0.x compatible with vagrant, note version 5.1 not compatible with vagrant yet) from https://www.virtualbox.org/wiki/Download_Old_Builds_5_0
-Download the VagrantFile or clone this repository into some <directory with VagrantFile>
+
+Download the VagrantFile from https://raw.githubusercontent.com/h2020-westlife-eu/wp6-vm/master/VagrantFile
+or clone this repository into some [directory with VagrantFile]
 
 (Optionally), if you are behind proxy, download and install proxyconf plugin and set environment variables
 
@@ -22,7 +24,7 @@ Download the VagrantFile or clone this repository into some <directory with Vagr
 
 Open command-line (e.g. cmd, cygwin or terminal)
     
-    cd <directory with VagrantFile>
+    cd [directory with VagrantFile]
     vagrant up
 
 This will start CernVM customization and boots to Scientific Linux 7.2 and configures related WP. Depending on network speed it will take several to several tens of minutes - downloading 200 MB of data.
