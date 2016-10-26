@@ -48,6 +48,6 @@ After self deployment and installation the virtual machine provides 3 basic serv
  2. WebDAV protocol to the shared data at http://localhost:8080/webdav/
 
 ##Release Notes
-### 26/10/2016 - tested on vagrant 1.8.6, compatible with VirtualBox 5.1, vagrant < 1.8.6 requires VirtualBox 5.0.x, doesn't require VirtualBox extension pack
-### version 16.10 - tested on vagrant 1.8.1 and 1.8.4 and VirtualBox 5.0.26 (version 5.0.x compatible with vagrant, note version 5.1 not compatible with vagrant < 1.8.5), download from https://www.virtualbox.org/wiki/Download_Old_Builds_5_0 
+- 26/10/2016 - tested on vagrant 1.8.6, compatible with VirtualBox 5.1, vagrant < 1.8.6 requires VirtualBox 5.0.x, doesn't require VirtualBox extension pack
+- version 16.10 - tested on vagrant 1.8.1 and 1.8.4 and VirtualBox 5.0.26 (version 5.0.x compatible with vagrant, note version 5.1 not compatible with vagrant < 1.8.5), download from https://www.virtualbox.org/wiki/Download_Old_Builds_5_0 
 and install VirtualBox Extension Pack 
