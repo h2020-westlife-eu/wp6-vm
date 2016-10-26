@@ -6,12 +6,12 @@
 ##################################################
 
 echo downloading west-life-wp6
-wget --quiet https://github.com/h2020-westlife-eu/west-life-wp6/archive/master.zip
-unzip -q master.zip -d /home/vagrant
-rm master.zip
+#wget --quiet https://github.com/h2020-westlife-eu/west-life-wp6/archive/master.zip
+#unzip -q master.zip -d /home/vagrant
+#rm master.zip
 # or alternatively git clone, commented
-# git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
-# mv west-life-wp6 west-life-wp6-master
+git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
+mv west-life-wp6 west-life-wp6-master
 
 ###########################
 # launch bootstrap script #

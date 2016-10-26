@@ -21,13 +21,20 @@ or clone this repository into some [directory with VagrantFile]
     export https_proxy=https://user:password@host:port
     export no_proxy=localhost
     vagrant plugin install vagrant-proxyconf
+    
+(Optionally), if you have used west-life VM before, update the boxes cached in local machines
+    vagrant box update    
 
 Open command-line (e.g. cmd, cygwin or terminal)
-    
+     
     cd [directory with VagrantFile]
-    vagrant up
+    vagrant up    
 
 This will start CernVM customization and boots to Scientific Linux 7.2 and configures related WP. Depending on network speed it will take several to several tens of minutes - downloading 200 MB of data.
+After testing you may, stop (halt) or destroy and delete/clean all VM related files
+
+   vagrant halt
+   vagrant destroy
 
 ## Usage
 The new virtual machine can be accessed by SSH (by default the 2222 port is forwarded to VM)
@@ -36,9 +43,12 @@ The new virtual machine can be accessed by SSH (by default the 2222 port is forw
 
 or via GUI in virtualbox (username/password: vagrant/vagrant)
 
-Or via web browser (port 8080 is by default forwarded to VM)
+Or via web browser (port 8080 is by default forwarded to VM, check VagrantFile or vagrant log)
 
     http://localhost:8080/
+    
+Files of the current working directory of host are mounted into /home/vagrant/work/local
+Repositories allowing WEBDAV interface (B2DROP) are mounted into /home/vagrant/work/b2drop     
 
 ##Current state of prototype implementation
 After self deployment and installation the virtual machine provides 3 basic services:
