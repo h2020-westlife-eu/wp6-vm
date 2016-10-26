@@ -20,7 +20,8 @@ Download [ZIP](https://github.com/h2020-westlife-eu/wp6-vm/archive/master.zip) o
     export no_proxy=localhost
     vagrant plugin install vagrant-proxyconf
     
-(Optionally), if you have used west-life VM before, update the boxes cached in local machines
+(Optionally), if you have used west-life VM before, update the vagrant box cache
+
     vagrant box update    
 
 Open command-line (e.g. cmd, cygwin or terminal)
@@ -53,9 +54,9 @@ After self deployment and installation the virtual machine provides 3 basic serv
  
 ## Cleaning
 After testing you may, stop (halt) or delete/clean (destroy) all VM related files
-
-   vagrant halt
-   vagrant destroy
+   
+    vagrant halt
+    vagrant destroy
 
 ##Release Notes
 - 26/10/2016 - updated base box with uCernVM2.7.4 bootloader for CernVM 4 fixes security bug 'dirty COW' and aufs bug in kernel, https://atlas.hashicorp.com/westlife-eu, tested on vagrant 1.8.6, compatible with VirtualBox 5.1, vagrant < 1.8.6 requires VirtualBox 5.0.x, doesn't require VirtualBox extension pack
