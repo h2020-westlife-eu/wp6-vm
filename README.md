@@ -1,6 +1,5 @@
 # WP6 - Virtual folder - test environment
-A vagrant pool to configure VM environment with private West-life Virtual Research Environment. 
-Use this for test/production environment, for development go https://github.com/h2020-westlife-eu/west-life-wp6
+A vagrant pool to configure VM environment with private West-life Virtual Folder. Use this to prepare test/development environment. For source codes of VF, see https://github.com/h2020-westlife-eu/west-life-wp6
 
 ## Introduction
 West-Life is a H2020 Virtual Research Environment project that will provide the application level services specific to uses cases in structural biology. 
