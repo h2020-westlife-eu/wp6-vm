@@ -12,8 +12,7 @@ Prerequisites:
  1. Vagrant - tool for automation of virtual machine deployment. Download and install vagrant from https://www.vagrantup.com/
  2. Virtualbox - VM stack. Download and install virtualbox https://www.virtualbox.org/wiki/Downloads
 
-Download the VagrantFile from https://raw.githubusercontent.com/h2020-westlife-eu/wp6-vm/master/VagrantFile
-or clone this repository into some [directory with VagrantFile]
+Download [ZIP](https://github.com/h2020-westlife-eu/wp6-vm/archive/master.zip) or clone https://github.com/h2020-westlife-eu/wp6-vm.git into some [wp6-vm directory]
 
 (Optionally), if you are behind proxy, download and install proxyconf plugin and set environment variables
 
@@ -27,14 +26,10 @@ or clone this repository into some [directory with VagrantFile]
 
 Open command-line (e.g. cmd, cygwin or terminal)
      
-    cd [directory with VagrantFile]
+    cd [wp6-vm directory]
     vagrant up    
 
 This will start CernVM customization and boots to Scientific Linux 7.2 and configures related WP. Depending on network speed it will take several to several tens of minutes - downloading 200 MB of data.
-After testing you may, stop (halt) or destroy and delete/clean all VM related files
-
-   vagrant halt
-   vagrant destroy
 
 ## Usage
 The new virtual machine can be accessed by SSH (by default the 2222 port is forwarded to VM)
@@ -56,6 +51,12 @@ After self deployment and installation the virtual machine provides 3 basic serv
  1. Web application at http://localhost:8080
 	 - Optional connection to b2drop repository, directory browsing
  2. WebDAV protocol to the shared data at http://localhost:8080/webdav/
+ 
+## Cleaning
+After testing you may, stop (halt) or delete/clean (destroy) all VM related files
+
+   vagrant halt
+   vagrant destroy
 
 ##Release Notes
 - 26/10/2016 - tested on vagrant 1.8.6, compatible with VirtualBox 5.1, vagrant < 1.8.6 requires VirtualBox 5.0.x, doesn't require VirtualBox extension pack
