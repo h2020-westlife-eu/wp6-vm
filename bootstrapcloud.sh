@@ -19,7 +19,7 @@ mv west-life-wp6 west-life-wp6-master
 
 export WP6SRC=/home/vagrant/west-life-wp6-master/wp6-virtualfolder
 mkdir -p /home/vagrant/bootstrap
-cp -R $WP6SRC/bootstrapcloud/* /home/vagrant/bootstrap
+cp -R $WP6SRC/bootstrap/* /home/vagrant/bootstrap
 dos2unix /home/vagrant/bootstrap/*
 chmod ugo+x /home/vagrant/bootstrap/*.sh
 chown -R vagrant:vagrant /home/vagrant/bootstrap
