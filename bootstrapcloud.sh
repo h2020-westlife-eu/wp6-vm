@@ -11,6 +11,12 @@ echo downloading west-life-wp6
 #rm master.zip
 # or alternatively git clone, commented
 git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
+
+# optional switch to branch
+# cd west-life-wp6
+# git checkout vre-devel
+# cd ..
+
 mv west-life-wp6 west-life-wp6-master
 
 ###########################
