@@ -30,3 +30,4 @@ dos2unix /home/vagrant/bootstrap/*
 chmod ugo+x /home/vagrant/bootstrap/*.sh
 chown -R vagrant:vagrant /home/vagrant/bootstrap
 /home/vagrant/bootstrap/bootstrap.sh
+echo "BOOTSTRAP FINISHED, VM prepared to use"
