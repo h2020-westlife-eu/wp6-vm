@@ -29,6 +29,13 @@ Open command-line (e.g. cmd, cygwin or terminal) and cd to directory where wp6-v
 
     vagrant box update    
 
+(Optionally), if you want test development branch, edit the bootstrapcloud.sh file and uncomment/edit the following three lines (change 'vre-devel' with your favourite branch):
+
+    # optional switch to branch
+    cd west-life-wp6
+    git checkout vre-devel
+    cd ..
+
 Start the vagrant box:
 
     vagrant up    
