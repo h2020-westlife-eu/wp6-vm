@@ -14,33 +14,33 @@ Choose one of the following
  - (prefered) download metarepository [ZIP (4kB)](https://github.com/h2020-westlife-eu/wp6-vm/archive/master.zip) and unzip it into some [wp6-vm directory] or clone the meta repository from https://github.com/h2020-westlife-eu/wp6-vm.git.
  - or download (3MB) or clone (21MB) this repository - use "Clone or download" button above. This option is intended for development purposes.
 
-Open command-line (e.g. cmd, cygwin or terminal) and cd to directory where wp6-vm is unzipped/cloned
+*1.* Open command-line (e.g. cmd, cygwin or terminal) and cd to directory where wp6-vm is unzipped/cloned
      
     cd [wp6-vm directory]
 
-(Optionally), if you are behind proxy, download and install proxyconf plugin and set environment variables
+*2.* (Optionally), if you are behind proxy, download and install proxyconf plugin and set environment variables
 
     export http_proxy=http://user:password@host:port
     export https_proxy=https://user:password@host:port
     export no_proxy=localhost
     vagrant plugin install vagrant-proxyconf
     
-(Optionally), if you have used west-life VM before, update the vagrant box cache
+*3.* (Optionally), if you have used west-life VM before, update the vagrant box cache
 
     vagrant box update    
 
-(Optionally), if you want test development branch, edit the bootstrapcloud.sh file and uncomment/edit the following three lines (change 'vre-devel' with your favourite branch):
+*4.* (Optionally), if you want test development branch, edit the bootstrapcloud.sh file and uncomment/edit the following three lines (change 'vre-devel' with your favourite branch):
 
     # optional switch to branch
     cd west-life-wp6
     git checkout vre-devel
     cd ..
 
-Start the vagrant box:
+*5.* Start the vagrant box:
 
     vagrant up    
 
-This will start VM template CernVM, boots to Scientific Linux 7.2 and performs some bootstrap scripts. Depending on network speed it will take several to several tens of minutes - downloading about 200 MB of data.
+This will start VM template CernVM, boots to Scientific Linux 7.2 and performs some bootstrap scripts. Depending on network speed it will take several to several tens of minutes - downloading about 200 MB of data. Wait until "BOOTSTRAP FINISHED", otherwise the process failed, investigate the log and repeat the step 5.
 
 ## Usage
 
@@ -57,11 +57,11 @@ To directly work with VM, you can SSH (by default the 2222 port is forwarded to 
 or access GUI in virtualbox (username/password: vagrant/vagrant).
 
 ## Uninstallation - Cleaning
-After testing you may, stop (halt) the VM:
+*6.* After testing you may, stop (halt) the VM:
    
     vagrant halt
     
-If you'll not use the VM anymore, you can delete (destroy) the VM:
+*7.* If you'll not use the VM anymore, you can delete (destroy) the VM:
     
     vagrant destroy
     
