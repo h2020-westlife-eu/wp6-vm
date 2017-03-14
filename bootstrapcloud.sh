@@ -105,12 +105,13 @@ cp /cvmfs/west-life.egi.eu/software/virtualfolder/latest/conf/westlife-metadata.
 cp /cvmfs/west-life.egi.eu/software/virtualfolder/latest/conf/westlife-vre.service /etc/systemd/system/
 chmod -R 600 /home/vagrant/.westlife
 chmod u+x /home/vagrant/.westlife 
+touch /home/vagrant/.westlife/vresqlite.db
+
 chown -R vagrant:vagrant /home/vagrant
+
 #add permission to allow browse webdav content in /home/vagrant/work
 chmod ugo+rwx /home/vagrant/work
 chmod go+rx /home/vagrant
-
-touch /home/vagrant/.westlife/vresqlite.db
 
 systemctl reload
 systemctl enable westlife-metadata
