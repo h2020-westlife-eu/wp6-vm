@@ -13,9 +13,9 @@ Vagrant.configure(2) do |config|
     config.vm.box = "westlife-eu/wp6-cernvm"
   end
   # forward standard web
-  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 80, host: 8081
   # forward depended tool (SCIPION)
-  config.vm.network "forwarded_port", guest: 8000, host: 8000
+  config.vm.network "forwarded_port", guest: 8000, host: 8001
   if Vagrant.has_plugin?("vagrant-proxyconf")
     if ENV["http_proxy"]
       config.proxy.http     =  ENV["http_proxy"] #"http://wwwcache.dl.ac.uk:8080"
@@ -37,5 +37,6 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--vram", "16"]
   end
   config.vm.synced_folder ".", "/vagrant"
+  # config.vm.provision "shell",  path: "bootstrapsources.sh"
   config.vm.provision "shell",  path: "bootstrapcloud.sh"
 end
