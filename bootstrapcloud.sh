@@ -4,8 +4,7 @@
 #cd to directory where sl7 are
 #cd /cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/
 #/cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapcloud.sh
-cd /vagrant
-
+#/cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap
 ################################
 #transcript from bootstrapweb.sh
 #yum -y install yum-plugin-fastestmirror
@@ -15,7 +14,7 @@ echo Warning: This operation might be slown down by repeating requests to SL ser
 echo minrate=10 >> /etc/yum.conf
 echo timeout=120 >> /etc/yum.conf
 # copy additional sl7 mirrors in UK
-cp sl7*.repo /etc/yum.repos.d
+cp /cvmfs/west-life.egi.eu/software/virtualfolder/latest/conf/sl7*.repo /etc/yum.repos.d
 echo Added mirrors to sl7 repo
 yum -y install epel-release
 yum repolist
