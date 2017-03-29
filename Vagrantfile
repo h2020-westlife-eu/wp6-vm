@@ -37,6 +37,10 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--vram", "16"]
   end
   config.vm.synced_folder ".", "/vagrant"
+
+  # uncomment/comment desired bootstrap type, if VM should be build from sources use bootstrapsources.sh
+  # otherwise(default) use bootstrapcvmfs.sh  
+
   # config.vm.provision "shell",  path: "bootstrapsources.sh"
-  config.vm.provision "shell",  path: "bootstrapcloud.sh"
+  config.vm.provision "shell",  path: "bootstrapcvmfs.sh"
 end

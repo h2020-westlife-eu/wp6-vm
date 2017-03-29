@@ -17,22 +17,23 @@ Choose one of the following
      
     cd [wp6-vm directory]
 
-*2.* (Optionally), if you are behind proxy, download and install proxyconf plugin and set environment variables
-
-    export http_proxy=http://user:password@host:port
-    export https_proxy=https://user:password@host:port
-    export no_proxy=localhost
-    vagrant plugin install vagrant-proxyconf
     
-*3.* (Optionally), if you have used west-life VM before, update the vagrant box cache
+*2.* (Optionally), if you have used west-life VM before, update the vagrant box cache
 
     vagrant box update    
 
-*4.* (Optionally), if you want test development branch, edit the bootstrapcloud.sh file and uncomment/edit the following three lines (change 'vre-devel' with your favourite branch):
+*3.* (Optionally), if you want install WP6 from source codes,
+   edit Vagrantfile and uncomment bootstrapsources.sh and comment bootstrapcvmfs.sh lines:
+
+   
+   config.vm.provision "shell",  path: "bootstrapsources.sh"
+   # config.vm.provision "shell",  path: "bootstrapcvmfs.sh"
+
+*4.* (Optionally), based on step 3. the (master) branch from sources are cloned, to change it, edit the bootstrapcloud.sh file and uncomment/edit the following three lines (change 'dev' with a desired git branch):
 
     # optional switch to branch
     cd west-life-wp6
-    git checkout vre-devel
+    git checkout dev
     cd ..
 
 *5.* Start the vagrant box:
@@ -46,10 +47,12 @@ This will start VM template CernVM, boots to Scientific Linux 7.2 and performs s
 After 'vagrant up' finished, the new virtual machine can be accessed via web browser (port 8080 is by default forwarded to VM, check VagrantFile or vagrant log for exact port number)
 
     http://localhost:8080/
-    
-Files of the current working directory of host are mounted into <code>/vagrant</code>
 
-To directly work with VM, you can SSH (by default the 2222 port is forwarded to VM)
+Default login name to VRE is vagrant/vagrant.
+    
+Files of the current working directory of host are mounted into the guest <code>/vagrant</code>.
+
+You can access the guest by SSH (default port 2222 is forwarded to VM)
 
     vagrant ssh
 

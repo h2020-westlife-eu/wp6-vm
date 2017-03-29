@@ -14,14 +14,19 @@ echo Warning: This operation might be slown down by repeating requests to SL ser
 echo minrate=10 >> /etc/yum.conf
 echo timeout=120 >> /etc/yum.conf
 # copy additional sl7 mirrors in UK
-cp /cvmfs/west-life.egi.eu/software/virtualfolder/latest/conf/sl7*.repo /etc/yum.repos.d
-echo Added mirrors to sl7 repo
-yum -y install epel-release
-yum repolist
+date
+echo Copying additional sl7 mirrors
+time cp /cvmfs/west-life.egi.eu/software/virtualfolder/latest/conf/sl7*.repo /etc/yum.repos.d
+echo Adding epel-release
+time yum -y install epel-release
+time yum repolist
 
 #copy apache conf
-cp /cvmfs/west-life.egi.eu/software/virtualfolder/latest/conf/000-default.conf /etc/httpd/conf.d/000-default.conf
-yum -y install davfs2
+date
+echo Configuring apache
+time cp /cvmfs/west-life.egi.eu/software/virtualfolder/latest/conf/000-default.conf /etc/httpd/conf.d/000-default.conf
+echo Adding davfs2
+time yum -y install davfs2
 
 systemctl start httpd
 systemctl enable httpd
@@ -55,8 +60,10 @@ fi
 
 #######################
 # transcript of bootstrapservice.sh
-
-mozroots --import --sync
+date
+echo Configuring Metadataservice
+echo Importing SSL certs
+time mozroots --import --sync
 #mkdir -p /home/vagrant/logs
 #chmod -R ugo+rwx /home/vagrant/logs
 #generate random key
@@ -70,15 +77,17 @@ fi
 
 ##########################
 # transcript of bootstrapvre.sh
-
-#configure all needed packages by VRE
-yum -y install python-virtualenv 
+date
+echo Configure all needed packages by VRE
+time yum -y install python-virtualenv 
 #python-pip python-redis nodejs-supervisor python-devel libffi-devel
 
 
 ############################
 # transcript of bootstrapscipion.sh
-yum -y install openmpi openmpi-devel
+date
+echo Configuring Scipion dependend packages
+time yum -y install openmpi openmpi-devel
 # fix issue with mpic++ not found
 export PATH=$PATH;/usr/lib64/openmpi/bin
 sudo -E -i -u vagrant /cvmfs/west-life.egi.eu/software/scipion/latest/scipion config
@@ -98,7 +107,8 @@ cp $WP6SRC/Desktop/scipion* /home/vagrant/Desktop
 chmod ugo+x /home/vagrant/Desktop/*
 
 ###########################
-# preparing autostart
+date
+echo preparing autostart
 cp /cvmfs/west-life.egi.eu/software/virtualfolder/latest/conf/000-default.conf /etc/httpd/conf.d/000-default.conf
 cp /cvmfs/west-life.egi.eu/software/virtualfolder/latest/conf/westlife-metadata.service /etc/systemd/system/
 cp /cvmfs/west-life.egi.eu/software/virtualfolder/latest/conf/westlife-vre.service /etc/systemd/system/
@@ -118,4 +128,5 @@ systemctl start westlife-metadata
 systemctl enable westlife-vre
 systemctl start westlife-vre
 
+date
 echo "BOOTSTRAP FINISHED, VM prepared to use"
