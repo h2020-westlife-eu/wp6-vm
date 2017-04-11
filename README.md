@@ -24,9 +24,10 @@ Download this metarepository [ZIP (4kB)](https://github.com/h2020-westlife-eu/wp
 *3.* (Optionally), if you want install WP6 from source codes,
    edit Vagrantfile and uncomment bootstrapsources.sh and comment bootstrapcvmfs.sh lines:
 
-   
+ ```  
    config.vm.provision "shell",  path: "bootstrapsources.sh"
    # config.vm.provision "shell",  path: "bootstrapcvmfs.sh"
+ ```
 
 *4.* (Optionally), based on step 3. the (master) branch from sources are cloned, to change it, edit the bootstrapcloud.sh file and uncomment/edit the following three lines (change 'dev' with a desired git branch):
 
