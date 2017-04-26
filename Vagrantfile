@@ -6,6 +6,8 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 
+Vagrant.require_version ">= 1.9.2" # host_ip below needed for 1.9.3
+
 Vagrant.configure(2) do |config|
   if ENV["http_proxy"]
     config.vm.box = "westlife-eu/wp6-cernvm-dlproxy"
@@ -13,9 +15,9 @@ Vagrant.configure(2) do |config|
     config.vm.box = "westlife-eu/wp6-cernvm"
   end
   # forward standard web
-  config.vm.network "forwarded_port", guest: 80, host: 8081
+  config.vm.network "forwarded_port", host_ip: "127.0.0.1", guest: 80, host: 8081
   # forward depended tool (SCIPION)
-  config.vm.network "forwarded_port", guest: 8000, host: 8001
+  config.vm.network "forwarded_port",host_ip: "127.0.0.1", guest: 8000, host: 8001
   if Vagrant.has_plugin?("vagrant-proxyconf")
     if ENV["http_proxy"]
       config.proxy.http     =  ENV["http_proxy"] #"http://wwwcache.dl.ac.uk:8080"
