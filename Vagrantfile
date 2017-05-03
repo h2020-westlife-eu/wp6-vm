@@ -24,7 +24,7 @@ Vagrant.configure(2) do |config|
   
   else
     if Vagrant::VERSION =~ /^1.9.4/
-      puts "vagrant version 1.9.4 detected. Upgrade to version 1.9.5 or above or downgrade to version 1.9.3 or bellow"
+      puts "vagrant version 1.9.4 detected. Upgrade to version 1.9.5+ or downgrade to version 1.9.3 or bellow"
       exit
     else
       puts "vagrant version:"
