@@ -9,13 +9,16 @@ echo downloading west-life-wp6
 #wget --quiet https://github.com/h2020-westlife-eu/west-life-wp6/archive/master.zip
 #unzip -q master.zip -d /home/vagrant
 #rm master.zip
+
 # or alternatively git clone, commented
 git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
 
 # optional switch to branch
-#cd west-life-wp6
-#git checkout vre-devel
-#cd ..
+cd west-life-wp6
+git checkout dev
+cd ..
+
+# rename folder to master - comment if getting zip
 rm -rf west-life-wp6-master
 mv west-life-wp6 west-life-wp6-master
 

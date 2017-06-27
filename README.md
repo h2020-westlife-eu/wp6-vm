@@ -1,14 +1,26 @@
-# Virtual folder
-## Introduction
-West-Life is a H2020 Virtual Research Environment project that will provide the application level services specific to uses cases in structural biology. 
-Data management work package WP6 build on existing infrastructure for storing and accessing data. It provides application level service usable for structural biology use cases and follows structural biology data lifecycle (Report ...).
-The WP6 is distributed as a vagrant package. Configuration files and scripts which initiates self deployment, installation and configuration of prototype virtual machine.
+# Virtual folder installation configuration
 
-## Installation
+This repository contains various configuration for deployment of the Virtual Folder - part of West-life project. For the default VM deployment from source codes use rather https://github.com/h2020-westlife-eu/west-life-wp6
+
+## Installation options:
 Prerequisites:
 
- 1. Vagrant - tool for automation of virtual machine deployment. Download and install vagrant from https://www.vagrantup.com/
- 2. Virtualbox - VM stack. Download and install virtualbox https://www.virtualbox.org/wiki/Downloads
+ 1. Vagrant (1.9.x supported, 1.9.5 recommended) - tool for automation of virtual machine deployment. Download and install vagrant from https://www.vagrantup.com/
+ 2. Virtualbox (5.0.x, 5.1.x supported, 5.1.22 recommended) - VM stack. Download and install virtualbox https://www.virtualbox.org/wiki/Downloads
+
+Brief instructions:
+```bash
+git clone https://github.com/h2020-westlife-eu/wp6-vm
+cd wp6-vm
+cd [selected-vf-deployment] (optional) 
+vagrant up
+```
+There are these options
+ 1. vf-local-from-sources
+ 2. vf-local-from-binaries
+ 3. vf-openstack-from-binaries  
+  
+## Comprehensive 
 
 Download this metarepository [ZIP (4kB)](https://github.com/h2020-westlife-eu/wp6-vm/archive/master.zip) and unzip it into some [wp6-vm directory] or clone this repository https://github.com/h2020-westlife-eu/wp6-vm.git.
 
@@ -21,15 +33,11 @@ Download this metarepository [ZIP (4kB)](https://github.com/h2020-westlife-eu/wp
 
     vagrant box update    
 
-*3.* (Optionally), if you want install WP6 from source codes,
-   edit Vagrantfile and uncomment bootstrapsources.sh and comment bootstrapcvmfs.sh lines:
+*3.* (Optionally), if you want install WP6 from source codes, cd to vf-local-from-sources
 
- ```  
-   config.vm.provision "shell",  path: "bootstrapsources.sh"
-   # config.vm.provision "shell",  path: "bootstrapcvmfs.sh"
- ```
-
-*4.* (Optionally), based on step 3. the (master) branch from sources are cloned, to change it, edit the bootstrapcloud.sh file and uncomment/edit the following three lines (change 'dev' with a desired git branch):
+    cd vf-local-from-sources
+    
+*4.* (Optionally), based on step 3. the (master) branch from sources are cloned, to change it, edit the bootstrap*.sh file and uncomment/edit the following three lines (change 'dev' with a desired git branch):
 
     # optional switch to branch
     cd west-life-wp6
@@ -59,6 +67,7 @@ You can access the guest by SSH (default port 2222 is forwarded to VM)
 or access GUI in virtualbox (username/password: vagrant/vagrant).
 
 ## Uninstallation - Cleaning
+
 *6.* After testing you may, stop (halt) the VM:
    
     vagrant halt
@@ -69,11 +78,9 @@ or access GUI in virtualbox (username/password: vagrant/vagrant).
     
 ## Release Notes
 
+  * 27/06/2017 - added variation of Vagrant scripts for different deployment type
   * 03/05/2017 - works with Vagrant version 1.9.3 and bellow or 1.9.5 and above. Vagrant version 1.9.3 needs to use different Vagrantfile, Vagrant version 1.9.4 has bug preventing to bootstrap the VM.
   * 25/11/2016 - Updated vagrant boxes to use uCernVM 2.7.7 bootloader, updated OVA images in https://appdb.egi.eu/store/vappliance/d6.1.virtualfoldervm/vaversion/latest and vagrant boxes, do "vagrant box update", bug fixes, consolidated initial web page and design, fixed/added background services
   * 26/10/2016 - moved VagrantFile to new repository https://github.com/h2020-westlife-eu/wp6-vm, updated base box with uCernVM2.7.4 bootloader for CernVM 4 fixes security bug 'dirty COW' and aufs bug in kernel, https://atlas.hashicorp.com/westlife-eu, 
    * tested on Windows 7 64 bit, vagrant 1.8.6 + VirtualBox 5.1.6, vagrant 1.8.1, 1.8.4, VirtualBox 5.0.26, note vagrant < 1.8.6 requires VirtualBox 5.0.x, doesn't require VirtualBox extension pack, download from https://www.virtualbox.org/wiki/Download_Old_Builds_5_0 
    * tested on Ubuntu 14.04 LTS, (default vagrant 1.4.3 needs to be updated to 1.8.6), default VirtualBox 4.3.36 works
-
-## Further doc
-http://internal-wiki.west-life.eu/w/index.php?title=D6.1

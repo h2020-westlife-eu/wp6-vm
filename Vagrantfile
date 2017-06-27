@@ -60,6 +60,6 @@ Vagrant.configure(2) do |config|
   # uncomment/comment desired bootstrap type, if VM should be build from sources use bootstrapsources.sh
   # otherwise(default) use bootstrapcvmfs.sh  
 
-  # config.vm.provision "shell",  path: "bootstrapsources.sh"
-  config.vm.provision "shell",  path: "bootstrapcvmfs.sh"
+  config.vm.provision "shell",  path: "bootstrapsources.sh"
+  # config.vm.provision "shell",  path: "bootstrapcvmfs.sh"
 end
