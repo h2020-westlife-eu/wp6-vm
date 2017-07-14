@@ -14,9 +14,9 @@ echo downloading west-life-wp6
 git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
 
 # optional switch to branch
-cd west-life-wp6
-git checkout dev
-cd ..
+#cd west-life-wp6
+#git checkout dev
+#cd ..
 
 # rename folder to master - comment if getting zip
 rm -rf west-life-wp6-master

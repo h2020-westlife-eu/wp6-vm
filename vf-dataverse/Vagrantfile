@@ -1,0 +1,100 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+
+# Vagrant.require_version "< 1.9.4" # 1.9.4 bug in connecting VM 
+
+Vagrant.configure(2) do |config|
+  #Virtual Folder Machine
+  config.vm.define "vf", autostart: false do |vf|
+    # config.vm.hostname = "west-life-vf"
+    if ENV["http_proxy"]
+      vf.vm.box = "westlife-eu/wp6-cernvm-dlproxy"
+    else
+      vf.vm.box = "westlife-eu/wp6-cernvm"
+    end
+    if Vagrant::VERSION =~ /^1.9.3/
+      puts "vagrant version 1.9.3, fixing host_ip configuration "
+      vf.vm.network "forwarded_port", host_ip: "127.0.0.1", guest: 80, host: 8080
+      vf.vm.network "forwarded_port",host_ip: "127.0.0.1", guest: 8000, host: 8000
+    else
+      if Vagrant::VERSION =~ /^1.9.4/
+        puts "vagrant version 1.9.4 detected. Upgrade to version 1.9.5+ or downgrade to version 1.9.3 or bellow"
+        exit
+      else
+        puts "vagrant version:"
+        puts Vagrant::VERSION
+        vf.vm.network "forwarded_port", guest: 80, host: 8080
+        vf.vm.network "forwarded_port", guest: 8000, host: 8000
+      end
+    end
+    if Vagrant.has_plugin?("vagrant-proxyconf")
+      if ENV["http_proxy"]
+        config.proxy.http     =  ENV["http_proxy"] #"http://wwwcache.dl.ac.uk:8080"
+      end
+      if ENV["https_proxy"]
+        config.proxy.https    = ENV["https_proxy"] #"http://wwwcache.dl.ac.uk:8080"
+      end
+      if ENV["no_proxy"]
+        config.proxy.no_proxy = ENV["no_proxy"] #"localhost,127.0.0.1"
+      end
+    end
+    vf.vm.provider "virtualbox" do |vb|
+      vb.gui = false
+      vb.memory = "2048"
+      vb.cpus = "2"
+      vb.customize ["modifyvm", :id, "--vram", "16"]
+    end
+    vf.vm.synced_folder ".", "/vagrant"
+    vf.vm.provision "shell",  path: "bootstrapsources.sh"
+  end    
+  
+  #Dataverse machine
+  config.vm.define "standalone", primary: true do |standalone|
+    # config.vm.hostname = "west-life-dataverse"
+
+    #standalone.vm.box = "puppet-vagrant-boxes.puppetlabs.com-centos-65-x64-virtualbox-puppet.box"
+    puts "WARNING: CentOS 7 specified. Newer than what the dev team tests on."
+    # config.vm.box_url = "https://atlas.hashicorp.com/puppetlabs/boxes/centos-7.2-64-puppet/versions/1.0.1/providers/virtualbox.box"
+    # config.vm.box = "puppetlabs-centos-7.2-64-puppet-1.0.1-virtualbox.box"
+    standalone.vm.box = "../../cernvm4-nogui.box"
+
+    mailserver = "localhost"
+    if ENV['MAIL_SERVER'].nil?
+      puts "MAIL_SERVER environment variable not specified. Using #{mailserver} by default.\nTo specify it in bash: export MAIL_SERVER=localhost"
+    else
+      mailserver = ENV['MAIL_SERVER']
+      puts "MAIL_SERVER environment variable found, using #{mailserver}"
+    end
+
+    config.vm.provider "virtualbox" do |v|
+      v.memory = 2048
+      v.cpus = 1
+    end
+    config.vm.provision "shell", path: "bootstrapdataverse.sh"
+    #config.vm.provision "shell", path: "/home/vagrant/dataverse/scripts/vagrant/setup.sh"
+    #config.vm.provision "shell", path: "/home/vagrant/dataverse/scripts/vagrant/setup-solr.sh"
+    #config.vm.provision "shell", path: "/home/vagrant/dataverse/scripts/vagrant/install-dataverse.sh", args: mailserver
+    # FIXME: get tests working and re-enable them!
+    #config.vm.provision "shell", path: "/home/vagrant/dataverse/scripts/vagrant/test.sh"
+
+    config.vm.network "private_network", ip: "192.168.42.10"
+    config.vm.network "forwarded_port", guest: 80, host: 8888
+    config.vm.network "forwarded_port", guest: 443, host: 9999
+    config.vm.network "forwarded_port", guest: 8983, host: 8993
+    config.vm.network "forwarded_port", guest: 8080, host: 8088
+    config.vm.network "forwarded_port", guest: 8181, host: 8188
+
+    # FIXME: use /dataverse/downloads instead
+    #config.vm.synced_folder "downloads", "/downloads"
+    # FIXME: use /dataverse/conf instead
+    #config.vm.synced_folder "conf", "/conf"
+    # FIXME: use /dataverse/scripts instead
+    #config.vm.synced_folder "scripts", "/scripts"
+    #config.vm.synced_folder ".", "/dataverse"
+  end  
+end

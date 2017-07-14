@@ -15,10 +15,11 @@ cd wp6-vm
 cd [selected-vf-deployment] (optional) 
 vagrant up
 ```
-There are these options
- 1. vf-local-from-sources
- 2. vf-local-from-binaries
- 3. vf-openstack-from-binaries  
+The `vagrant` tool will prepare Virtual Folder (VF) with this configuration
+ 1. vf-standalone-src - standalone VF from sources
+ 2. vf-standalone-bin - standalone VF from binaries
+ 3. vf-openstack-bin - cloud deployment VF into openstack from binaries
+ 4. vf-dataverse - VF with Dataverse software
   
 ## Comprehensive 
 
