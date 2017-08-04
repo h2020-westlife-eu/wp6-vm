@@ -14,9 +14,9 @@ echo downloading west-life-wp6
 git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
 
 # optional switch to branch
-#cd west-life-wp6
-#git checkout dev
-#cd ..
+cd west-life-wp6
+git checkout dev
+cd ..
 
 # rename folder to master - comment if getting zip
 rm -rf west-life-wp6-master
@@ -27,10 +27,6 @@ mv west-life-wp6 west-life-wp6-master
 ###########################
 
 export WP6SRC=/home/vagrant/west-life-wp6-master/wp6-virtualfolder
-mkdir -p /home/vagrant/bootstrap
-cp -R $WP6SRC/bootstrap/* /home/vagrant/bootstrap
-dos2unix /home/vagrant/bootstrap/*
-chmod ugo+x /home/vagrant/bootstrap/*.sh
-chown -R vagrant:vagrant /home/vagrant/bootstrap
-/home/vagrant/bootstrap/bootstrap.sh
-
+dos2unix $WP6SRC/bootstrap/*
+chmod ugo+x $WP6SRC/bootstrap/*.sh
+$WP6SRC/bootstrap/bootstrap.sh

@@ -9,12 +9,7 @@
 # Vagrant.require_version "< 1.9.4" # 1.9.4 bug in connecting VM 
 
 Vagrant.configure(2) do |config|
-
-  if ENV["http_proxy"]
-    config.vm.box = "westlife-eu/wp6-cernvm-dlproxy"
-  else
-    config.vm.box = "westlife-eu/wp6-cernvm"
-  end
+  config.vm.box = "../../cernvm4-gui.box"
   if Vagrant::VERSION =~ /^1.9.3/
     puts "vagrant version 1.9.3, fixing host_ip configuration "
     # forward standard web
@@ -30,9 +25,9 @@ Vagrant.configure(2) do |config|
       puts "vagrant version:"
       puts Vagrant::VERSION
       # forward standard web
-      config.vm.network "forwarded_port", guest: 80, host: 8080
+      config.vm.network "forwarded_port", guest: 80, host: 8084
       # forward depended tool (SCIPION)
-      config.vm.network "forwarded_port", guest: 8000, host: 8000
+      config.vm.network "forwarded_port", guest: 8000, host: 8004
     end
   end
   if Vagrant.has_plugin?("vagrant-proxyconf")

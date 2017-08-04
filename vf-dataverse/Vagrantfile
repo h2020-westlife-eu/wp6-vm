@@ -61,7 +61,7 @@ Vagrant.configure(2) do |config|
     puts "WARNING: CentOS 7 specified. Newer than what the dev team tests on."
     # config.vm.box_url = "https://atlas.hashicorp.com/puppetlabs/boxes/centos-7.2-64-puppet/versions/1.0.1/providers/virtualbox.box"
     # config.vm.box = "puppetlabs-centos-7.2-64-puppet-1.0.1-virtualbox.box"
-    standalone.vm.box = "../../cernvm4-nogui.box"
+    standalone.vm.box = "westlife-eu/cernvm4-nogui"
 
     mailserver = "localhost"
     if ENV['MAIL_SERVER'].nil?
