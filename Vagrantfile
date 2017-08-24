@@ -30,9 +30,9 @@ Vagrant.configure(2) do |config|
       puts "vagrant version:"
       puts Vagrant::VERSION
       # forward standard web
-      config.vm.network "forwarded_port", guest: 80, host: 8081
+      config.vm.network "forwarded_port", guest: 80, host: 8080
       # forward depended tool (SCIPION)
-      config.vm.network "forwarded_port", guest: 8000, host: 8001    
+      config.vm.network "forwarded_port", guest: 8000, host: 8000
     end
   end
   if Vagrant.has_plugin?("vagrant-proxyconf")
@@ -60,6 +60,6 @@ Vagrant.configure(2) do |config|
   # uncomment/comment desired bootstrap type, if VM should be build from sources use bootstrapsources.sh
   # otherwise(default) use bootstrapcvmfs.sh  
 
-  config.vm.provision "shell",  path: "bootstrapsources.sh"
-  # config.vm.provision "shell",  path: "bootstrapcvmfs.sh"
+  config.vm.provision "shell",  path: "vf-standalone-src/bootstrapsources.sh"
+  # config.vm.provision "shell",  path: "vf-standalone-bin/bootstrapcvmfs.sh"
 end
