@@ -11,6 +11,7 @@ echo downloading west-life-wp6
 #rm master.zip
 
 # or alternatively git clone, commented
+cd /home/vagrant
 git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
 
 # optional switch to branch
@@ -27,7 +28,7 @@ mv west-life-wp6 west-life-wp6-master
 ###########################
 
 export WP6SRC=/home/vagrant/west-life-wp6-master/wp6-virtualfolder
-# export PORTAL_DEPLOYMENT=1  # enable VRE - multiuser environment - otherwise single user
+export PORTAL_DEPLOYMENT=1  # enable VRE - multiuser environment - otherwise single user
 mkdir -p /home/vagrant/bootstrap
 cp -R $WP6SRC/bootstrap/* /home/vagrant/bootstrap
 dos2unix /home/vagrant/bootstrap/*
