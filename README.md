@@ -1,55 +1,97 @@
-# Virtual folder installation configuration
+# Development installation
 
-This repository contains various configuration for deployment of the Virtual Folder - part of West-life project. For the default VM deployment from source codes use rather https://github.com/h2020-westlife-eu/west-life-wp6
-
-## Installation options:
 Prerequisites:
 
- 1. Vagrant (1.9.x supported, 1.9.5 recommended) - tool for automation of virtual machine deployment. Download and install vagrant from https://www.vagrantup.com/
- 2. Virtualbox (5.0.x, 5.1.x supported, 5.1.22 recommended) - VM stack. Download and install virtualbox https://www.virtualbox.org/wiki/Downloads
+ 1. Vagrant - tool for automation of virtual machine deployment. 
+  1. For MS Windows - Download and install vagrant from https://www.vagrantup.com/  (tested on/recommended version vagrant 1.9.6) 
+  2. For Linux - use prefered package management
+     1. Ubuntu:```apt install vagrant```
+     2. Centos(RHEL):```yum install vagrant```
+ 2. Virtualbox - VM stack. 
+   1. For MS Windows - Download and install virtualbox https://www.virtualbox.org/wiki/Downloads
+ (tested on/recommended version Virtualbox 5.1.22)
+   2. For Linux - use preferred package management. 
+      1. Ubuntu: ```apt install virtualbox```
+      2. Centos(RHEL): ```yum install virtualbox```
 
-Brief instructions:
-```bash
-git clone https://github.com/h2020-westlife-eu/wp6-vm
+## Brief instruction using Vagrant
+
+The Vagrant tool configures and bootstraps virtual machine in Virtualbox.
+Brief instructions are:
+
+```
+git clone https://github.com/h2020-westlife-eu/wp6-vm.git
+
 cd wp6-vm
-cd [selected-vf-deployment] (optional) 
+
 vagrant up
 ```
-The `vagrant` tool will prepare Virtual Folder (VF) with this configuration
- 1. vf-standalone-src - standalone VF from sources
- 2. vf-standalone-bin - standalone VF from binaries
- 3. vf-openstack-bin - cloud deployment VF into openstack from binaries
- 4. vf-dataverse - VF with Dataverse software
-  
-## Comprehensive 
 
-Download this metarepository [ZIP (4kB)](https://github.com/h2020-westlife-eu/wp6-vm/archive/master.zip) and unzip it into some [wp6-vm directory] or clone this repository https://github.com/h2020-westlife-eu/wp6-vm.git.
+![](/doc/assets/VMVagrantUp.gif)
 
-*1.* Open command-line (e.g. cmd, cygwin or terminal) and cd to directory where wp6-vm is unzipped/cloned
+After succesfull installation, there should be message 'BOOSTRAP FINISHED, VM prepared to use'.
+
+After 'vagrant up' has finished, the new virtual machine can be accessed via web browser \(port 8080 is by default forwarded to VM, check VagrantFile or vagrant log for exact port number\)
+
+```
+http://localhost:8080/
+```
+
+You can access the desktop of the VM by going into VirtualBox.
+
+## Detailed instruction
+
+
+Download or clone metarepository [ZIP (4kB)](https://github.com/h2020-westlife-eu/wp6-vm/archive/master.zip) unzip it into some [wp6-vm directory] or clone the main repository https://github.com/h2020-westlife-eu/wp6-vm.git.
+
+**1.** Open command-line (e.g. cmd, cygwin or terminal) and cd to directory where wp6-vm is unzipped/cloned
      
-    cd [wp6-vm directory]
+    cd [wp6-vm directory]/[selected configuration]
 
+These configurations are available:
+- Standalone from Source Codes (default) - based on CernVM 4.0 micro image which boots into Scientific Linux 7. Initial VM image size = 18MB, during boot and bootstrap downloads 658 MB. This is preferred option as CernVM distrtomaibutes most updated SL7 with recent security updates, so either restart or ```cernvm-update -a``` is required occasionally.
+```
+cd wp6-vm/vf-standalone-src/
+    OR
+cd wp6-vm
+```
+
+- Standalone from Binaries (distributed via cvmfs). The same as above - but Virtual Folder is not compiled from sources -boots from cvmfs as well. This option is faster, the last stable release is distributed.
+```
+cd wp6-vm/vf-standalone-bin/
+```
+
+- Standalone from Source Codes - based on clean Scientific Linux 7 - no dependency on online repositories at all. Initial VM image size = 665 MB, boot and bootstrap download 320 MB. Recommended for preparing off-line deployment.
+```
+cd wp6-vm/vf-standalone-src-sl7/
+```
+
+- Test configurations - currently in testing stage, not guaranted to be working.
+```
+cd wp6-vm/test-...
+```
     
-*2.* (Optionally), if you have used west-life VM before, update the vagrant box cache
+**2.** (Optionally), if you have used west-life VM before, you may remove previous VM by and update the vagrant box cache
 
+    vagrant destroy
     vagrant box update    
+        
 
-*3.* (Optionally), if you want install WP6 from source codes, cd to vf-local-from-sources
-
-    cd vf-local-from-sources
-    
-*4.* (Optionally), based on step 3. the (master) branch from sources are cloned, to change it, edit the bootstrap*.sh file and uncomment/edit the following three lines (change 'dev' with a desired git branch):
+**3.** (Optionally), the master branch from sources are cloned, to change it, edit the bootstrapsources.sh file and uncomment/edit the following three lines (change 'dev' with a desired git branch):
 
     # optional switch to branch
     cd west-life-wp6
     git checkout dev
     cd ..
+**4.** (Optionally), by default, virtualfolder in VM will contain single user environment. To enable multiuser environment with VRE, edit bootstrapsources.sh file and uncomment the following line. Default user for VF will then be vagrant/vagrant:
 
-*5.* Start the vagrant box:
+    export PORTAL_DEPLOYMENT=1  
+
+**5.** Start the vagrant box:
 
     vagrant up    
 
-This will start VM template CernVM, boots to Scientific Linux 7.2 and performs some bootstrap scripts. Depending on network speed it will take several to several tens of minutes - downloading about 200 MB of data. Wait until "BOOTSTRAP FINISHED", otherwise the process failed, investigate the log and repeat the step 5.
+This will start VM template, boots to Scientific Linux 7 and performs some bootstrap scripts. Depending on network speed it will take several to several tens of minutes - CernVM image (18MB) will need to download additional 200 MB, SL7 image (700 MB) will need to download additional 100 MB. Wait until "BOOTSTRAP FINISHED", otherwise the process failed, investigate the logs.
 
 ## Usage
 
@@ -68,14 +110,14 @@ You can access the guest by SSH (default port 2222 is forwarded to VM)
 or access GUI in virtualbox (username/password: vagrant/vagrant).
 
 ## Uninstallation - Cleaning
-
 *6.* After testing you may, stop (halt) the VM:
    
     vagrant halt
     
-*7.* If you'll not use the VM anymore, you can delete (destroy) the VM:
+*7.* If you will not use the VM anymore, you can delete (destroy) the VM:
     
     vagrant destroy
+
     
 ## Release Notes
 
