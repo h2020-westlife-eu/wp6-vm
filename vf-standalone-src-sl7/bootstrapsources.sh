@@ -34,4 +34,6 @@ dos2unix /home/vagrant/bootstrap/*
 chmod ugo+x /home/vagrant/bootstrap/*.sh
 chown -R vagrant:vagrant /home/vagrant/bootstrap
 /home/vagrant/bootstrap/bootstrap.sh
+# workaround, bug when http restart - Syntax error on line 1 of /etc/httpd/conf.modules.d/00-lua.conf: Cannot load modules/mod_lua.so
+rm -rf /etc/httpd/conf.modules.d/00-lua.conf
 
