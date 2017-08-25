@@ -11,6 +11,7 @@ echo downloading west-life-wp6
 #rm master.zip
 
 # or alternatively git clone, commented
+cd /home/vagrant
 git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
 
 # optional switch to branch
