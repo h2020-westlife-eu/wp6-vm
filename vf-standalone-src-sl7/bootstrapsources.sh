@@ -18,7 +18,10 @@ git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
 cd west-life-wp6
 git checkout dev
 git submodule update --init --recursive
-cd ..
+cd wp6-repository
+git checkout
+git pull origin master
+cd ../..
 
 # rename folder to master - comment if getting zip
 rm -rf west-life-wp6-master
