@@ -17,6 +17,7 @@ git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
 # optional switch to branch
 cd west-life-wp6
 git checkout dev
+git submodule update --init --recursive
 cd ..
 
 # rename folder to master - comment if getting zip
@@ -28,12 +29,15 @@ mv west-life-wp6 west-life-wp6-master
 ###########################
 
 export WP6SRC=/home/vagrant/west-life-wp6-master/wp6-virtualfolder
-mkdir -p /home/vagrant/bootstrap
-cp -R $WP6SRC/bootstrap/* /home/vagrant/bootstrap
+export WP6REPSRC=/home/vagrant/west-life-wp6-master/wp6-repository
+chown -R vagrant:vagrant $WP6SRC
+ln -s $WP6SRC/bootstrap /home/vagrant/bootstrap
 dos2unix /home/vagrant/bootstrap/*
 chmod ugo+x /home/vagrant/bootstrap/*.sh
-chown -R vagrant:vagrant /home/vagrant/bootstrap
 /home/vagrant/bootstrap/bootstrap.sh
-# workaround, bug when http restart - Syntax error on line 1 of /etc/httpd/conf.modules.d/00-lua.conf: Cannot load modules/mod_lua.so
-rm -rf /etc/httpd/conf.modules.d/00-lua.conf
+
+chown -R vagrant:vagrant $WP6REPSRC
+dos2unix $WP6REPSRC/*.sh
+chmod ugo+x $WP6REPSRSC/*.sh
+$WP6REPSRC/bootstrap.sh
 
