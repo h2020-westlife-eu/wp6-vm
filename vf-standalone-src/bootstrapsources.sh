@@ -18,7 +18,10 @@ git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
 cd west-life-wp6
 git checkout dev
 git submodule update --init --recursive
-cd ..
+cd wp6-repository
+git checkout
+git pull origin master
+cd ../..
 
 # rename folder to master - comment if getting zip
 rm -rf west-life-wp6-master
@@ -28,12 +31,17 @@ mv west-life-wp6 west-life-wp6-master
 # launch bootstrap script #
 ###########################
 
-
 export WP6SRC=/home/vagrant/west-life-wp6-master/wp6-virtualfolder
+export WP6REPSRC=/home/vagrant/west-life-wp6-master/wp6-repository
 export PORTAL_DEPLOYMENT=1  # enable VRE - multiuser environment - otherwise single user
 chown -R vagrant:vagrant $WP6SRC
 ln -s $WP6SRC/bootstrap /home/vagrant/bootstrap
 dos2unix /home/vagrant/bootstrap/*
 chmod ugo+x /home/vagrant/bootstrap/*.sh
 /home/vagrant/bootstrap/bootstrap.sh
+
+chown -R vagrant:vagrant $WP6REPSRC
+dos2unix $WP6REPSRC/*.sh
+chmod ugo+x $WP6REPSRSC/*.sh
+$WP6REPSRC/bootstrap.sh
 

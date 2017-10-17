@@ -12,11 +12,7 @@ Vagrant.configure(2) do |config|
   #Virtual Folder Machine
   config.vm.define "vf", autostart: false do |vf|
     # config.vm.hostname = "west-life-vf"
-    if ENV["http_proxy"]
-      vf.vm.box = "westlife-eu/wp6-cernvm-dlproxy"
-    else
-      vf.vm.box = "westlife-eu/wp6-cernvm"
-    end
+    vf.vm.box = "westlife-eu/cernvm4"
     if Vagrant::VERSION =~ /^1.9.3/
       puts "vagrant version 1.9.3, fixing host_ip configuration "
       vf.vm.network "forwarded_port", host_ip: "127.0.0.1", guest: 80, host: 8080

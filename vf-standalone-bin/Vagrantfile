@@ -9,7 +9,7 @@
 # Vagrant.require_version "< 1.9.4" # 1.9.4 bug in connecting VM 
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "../../cernvm4-gui.box"
+  config.vm.box = "westlife-eu/cernvm4"
   if Vagrant::VERSION =~ /^1.9.3/
     puts "vagrant version 1.9.3, fixing host_ip configuration "
     # forward standard web
