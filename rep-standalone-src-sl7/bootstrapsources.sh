@@ -23,5 +23,5 @@ chown -R vagrant:vagrant $WP6REPSRC
 dos2unix $WP6REPSRC/*.sh
 chmod ugo+x $WP6REPSRSC/*.sh
 $WP6REPSRC/bootstrap.sh
-# $WP6REPSRC/bootstrapaai.sh
+$WP6REPSRC/bootstrapaai.sh
 

@@ -33,6 +33,7 @@ mv west-life-wp6 west-life-wp6-master
 
 export WP6SRC=/home/vagrant/west-life-wp6-master/wp6-virtualfolder
 export WP6REPSRC=/home/vagrant/west-life-wp6-master/wp6-repository
+export PORTAL_DEPLOYMENT=1  # enable VRE - multiuser environment - otherwise single user
 chown -R vagrant:vagrant $WP6SRC
 ln -s $WP6SRC/bootstrap /home/vagrant/bootstrap
 dos2unix /home/vagrant/bootstrap/*
