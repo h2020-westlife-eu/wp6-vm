@@ -58,7 +58,7 @@ chmod ugo+rwx /home/vagrant/work
 chmod go+rx /home/vagrant
 touch /home/vagrant/.westlife/vresqlite.db
 chown -R vagrant:vagrant /home/vagrant
-systemctl reload
+systemctl daemo-reload
 systemctl enable westlife-metadata
 systemctl start westlife-metadata
 #single deployment comment, VRE deployment, uncomment
