@@ -9,8 +9,7 @@
 # Vagrant.require_version "< 1.9.4" # 1.9.4 bug in connecting VM 
 
 Vagrant.configure(2) do |config|
-
-  config.vm.box = "westlife-eu/scientific_7_x86_64_minimal_gui"
+  config.vm.box = "westlife-eu/cernvm4-nogui"
   if Vagrant::VERSION =~ /^1.9.3/
     puts "vagrant version 1.9.3, fixing host_ip configuration "
     # forward standard web
@@ -33,10 +32,10 @@ Vagrant.configure(2) do |config|
   end
   if Vagrant.has_plugin?("vagrant-proxyconf")
     if ENV["http_proxy"]
-      config.proxy.http     =  ENV["http_proxy"] 
+      config.proxy.http     =  ENV["http_proxy"] #"http://wwwcache.dl.ac.uk:8080"
     end
     if ENV["https_proxy"]
-      config.proxy.https    = ENV["https_proxy"] 
+      config.proxy.https    = ENV["https_proxy"] #"http://wwwcache.dl.ac.uk:8080"
     end
     if ENV["no_proxy"]
       config.proxy.no_proxy = ENV["no_proxy"] #"localhost,127.0.0.1"
@@ -47,17 +46,14 @@ Vagrant.configure(2) do |config|
     vb.gui = false
   #
   #   # Customize the amount of memory on the VM:
-    vb.memory = "4096"
+    vb.memory = "2048"
     vb.cpus = "2"
     vb.customize ["modifyvm", :id, "--vram", "16"]
   end
   config.vm.synced_folder ".", "/vagrant"
-  config.vm.synced_folder "c:/Users/ras23654/Project-tools", "/opt/shared"
-  config.vm.synced_folder "c:/Users/ras23654/", "/vagrant_data"
-
 
   # uncomment/comment desired bootstrap type, if VM should be build from sources use bootstrapsources.sh
   # otherwise(default) use bootstrapcvmfs.sh  
 
-  config.vm.provision "shell",  path: "bootstrapsources.sh"
+  config.vm.provision "shell",  path: "bootstrap.sh"
 end
