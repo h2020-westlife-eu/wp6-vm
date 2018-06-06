@@ -30,6 +30,8 @@ mv west-life-wp6 west-life-wp6-master
 
 export WP6SRC=/home/vagrant/west-life-wp6-master/wp6-virtualfolder
 #export PORTAL_DEPLOYMENT=1  # enable VRE - multiuser environment - otherwise single user
+export PORTAL_DEPLOYMENT=0
+export ALLOW_JUPYTER=0 # 0=no jupyter 1=jupyter enabled - takes 30 minutes to install
 chown -R vagrant:vagrant $WP6SRC
 ln -s $WP6SRC/bootstrap /home/vagrant/bootstrap
 dos2unix /home/vagrant/bootstrap/*
