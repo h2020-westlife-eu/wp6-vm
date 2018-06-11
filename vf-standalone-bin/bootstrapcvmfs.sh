@@ -3,4 +3,4 @@
 #17/10/2016 tomas - bootstrap by getting sources from github, cloud version
 #export PORTAL_DEPLOYMENT=1
 /cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapcloud.sh
-echo "BOOTSTRAP FINISHED, VM prepared to use"
+echo "BOOTSTRAP FINISHED, VM prepared to use, 'vagrant' and 'vagrant_data' providers available for use by Virtual Folder services"
