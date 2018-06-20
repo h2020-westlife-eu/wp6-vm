@@ -15,7 +15,7 @@ git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
 # launch bootstrap script #
 ###########################
 
-export WP6SRC=/opt/virtualfolder-src/wp6-virtualfolder
+export WP6SRC=/opt/virtualfolder-src/west-life-wp6/wp6-virtualfolder
 export PORTAL_DEPLOYMENT=0  # enable VRE - multiuser environment - otherwise single user
 export SSO_DEPLOYMENT=1 # enable SSO -multiuser environment
 chown -R vagrant:vagrant $WP6SRC
