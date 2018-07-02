@@ -15,7 +15,8 @@ fi
 
 export PORTAL_DEPLOYMENT=0  # enable VRE - multiuser environment - otherwise single user
 export SSO_DEPLOYMENT=1 # enable SSO -multiuser environment
-/cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapcloud.sh
 export WP6SRC=/opt/virtualfolder-src/wp6-virtualfolder
 mkdir -p $WP6SRC
+ln -s /cvmfs/west-life.egi.eu/software/virtualfolder/latest /opt/virtualfolder
+/cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapcloud.sh
 /cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapsso.sh
