@@ -19,6 +19,8 @@ $script = <<-SCRIPT
   cvmfs_config probe
   yum install -y httpd mod_ssl
   setenforce 0
+  firewall-cmd --zone=public --add-port=80/tcp --permanent
+  firewall-cmd --reload
   ln -s /cvmfs/west-life.egi.eu/tools/mono/latest/bin/mono /bin/mono
   /cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapcloud.sh
   systemctl daemon-reload
