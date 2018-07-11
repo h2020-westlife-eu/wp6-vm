@@ -9,6 +9,7 @@ echo downloading west-life-wp6
 # or alternatively git clone, commented
 mkdir -p /opt/virtualfolder-src
 cd /opt/virtualfolder-src
+yum install -y git 
 git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
 
 ###########################
@@ -17,6 +18,7 @@ git clone https://github.com/h2020-westlife-eu/west-life-wp6.git
 
 export WP6SRC=/opt/virtualfolder-src/west-life-wp6/wp6-virtualfolder
 export PORTAL_DEPLOYMENT=0  # enable VRE - multiuser environment - otherwise single user
-export SSO_DEPLOYMENT=1 # enable SSO -multiuser environment
+export SSO_DEPLOYMENT=0 # enable SSO -multiuser environment
+export ALLOW_JUPYTER=1 # enable jupyter
 chown -R vagrant:vagrant $WP6SRC
 $WP6SRC/bootstrap/bootstrap.sh

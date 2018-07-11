@@ -7,16 +7,32 @@
 # you're doing.
 
 # Vagrant.require_version "< 1.9.4" # 1.9.4 bug in connecting VM 
+$script = <<-SCRIPT
+  yum install -y https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest.noarch.rpm
+  yum install -y cvmfs cvmfs-config-default
+  cvmfs_config setup
+  echo "CVMFS_REPOSITORIES=west-life.egi.eu,wenmr.egi.eu
+  #change it to local http proxy instance - squid, or similar
+  CVMFS_HTTP_PROXY=DIRECT
+  " >/etc/cvmfs/default.local
+  service autofs restart
+  cvmfs_config probe
+  yum install -y httpd mod_ssl
+  setenforce 0
+  ln -s /cvmfs/west-life.egi.eu/tools/mono/latest/bin/mono /bin/mono
+  /cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapcloud.sh
+  systemctl daemon-reload
+  service westlife-metadata restart
+  echo I am provisioning...
+  date > /etc/vagrant_provisioned_at
+SCRIPT
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "westlife-eu/cernvm4"
+  config.vm.box = "westlife-eu/scientific_7"
   if Vagrant::VERSION =~ /^1.9.3/
     puts "vagrant version 1.9.3, fixing host_ip configuration "
     # forward standard web
     config.vm.network "forwarded_port", host_ip: "127.0.0.1", guest: 80, host: 8080
-    # forward depended tool (SCIPION)
-    config.vm.network "forwarded_port",host_ip: "127.0.0.1", guest: 8000, host: 8001
-  
   else
     if Vagrant::VERSION =~ /^1.9.4/
       puts "vagrant version 1.9.4 detected. Upgrade to version 1.9.5+ or downgrade to version 1.9.3 or bellow"
@@ -26,19 +42,6 @@ Vagrant.configure(2) do |config|
       puts Vagrant::VERSION
       # forward standard web
       config.vm.network "forwarded_port", guest: 80, host: 8080
-      # forward depended tool (SCIPION)
-      config.vm.network "forwarded_port", guest: 8000, host: 8001
-    end
-  end
-  if Vagrant.has_plugin?("vagrant-proxyconf")
-    if ENV["http_proxy"]
-      config.proxy.http     =  ENV["http_proxy"] #"http://wwwcache.dl.ac.uk:8080"
-    end
-    if ENV["https_proxy"]
-      config.proxy.https    = ENV["https_proxy"] #"http://wwwcache.dl.ac.uk:8080"
-    end
-    if ENV["no_proxy"]
-      config.proxy.no_proxy = ENV["no_proxy"] #"localhost,127.0.0.1"
     end
   end
   config.vm.provider "virtualbox" do |vb|
@@ -57,5 +60,5 @@ Vagrant.configure(2) do |config|
   # otherwise(default) use bootstrapcvmfs.sh  
 
   config.vm.provision "shell",  
-    inline: "/cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapcloud.sh"
+    inline: $script
 end
