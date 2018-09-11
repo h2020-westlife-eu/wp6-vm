@@ -7,6 +7,13 @@
 # you're doing.
 
 # Vagrant.require_version "< 1.9.4" # 1.9.4 bug in connecting VM 
+$script = <<-SCRIPT
+  ln -s /cvmfs/west-life.egi.eu/tools/mono/latest/bin/mono /bin/mono
+  /cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapcloud.sh
+  /cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapsso.sh
+  echo I am provisioned
+  date > /etc/vagrant_provisioned_at
+SCRIPT
 
 Vagrant.configure(2) do |config|
   config.vm.box = "westlife-eu/cernvm4"
@@ -57,5 +64,5 @@ Vagrant.configure(2) do |config|
   # otherwise(default) use bootstrapcvmfs.sh  
 
   config.vm.provision "shell",  
-    inline: "/cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapcloud.sh"
+    inline: $script
 end

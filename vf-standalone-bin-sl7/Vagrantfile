@@ -23,9 +23,10 @@ $script = <<-SCRIPT
   firewall-cmd --reload
   ln -s /cvmfs/west-life.egi.eu/tools/mono/latest/bin/mono /bin/mono
   /cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapcloud.sh
+  /cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapsso.sh
   systemctl daemon-reload
   service westlife-metadata restart
-  echo I am provisioning...
+  echo I am provisioned
   date > /etc/vagrant_provisioned_at
 SCRIPT
 
