@@ -19,7 +19,7 @@ git clone https://github.com/h2020-westlife-eu/virtualfolder.git
 
 export WP6SRC=/opt/virtualfolder-src/virtualfolder/wp6-virtualfolder
 export PORTAL_DEPLOYMENT=0  # enable VRE - multiuser environment - otherwise single user
-export SSO_DEPLOYMENT=1 # enable SSO -multiuser environment
+export SSO_DEPLOYMENT=0 # enable SSO -multiuser environment
 export ALLOW_JUPYTER=0 # enable jupyter
 chown -R vagrant:vagrant $WP6SRC
 $WP6SRC/bootstrap/bootstrap.sh
