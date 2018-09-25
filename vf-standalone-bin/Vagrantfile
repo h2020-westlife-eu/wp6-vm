@@ -8,10 +8,11 @@
 
 # Vagrant.require_version "< 1.9.4" # 1.9.4 bug in connecting VM 
 $script = <<-SCRIPT
-  export SSO_DEPLOYMNET=1
+  export SSO_DEPLOYMENT=1
   ln -s /cvmfs/west-life.egi.eu/tools/mono/latest/bin/mono /bin/mono
   /cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapcloud.sh
   /cvmfs/west-life.egi.eu/software/virtualfolder/latest/bootstrap/bootstrapsso.sh
+  service httpd restart
   echo I am provisioned
   date > /etc/vagrant_provisioned_at
 SCRIPT
