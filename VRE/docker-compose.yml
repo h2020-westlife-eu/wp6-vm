@@ -1,0 +1,36 @@
+version: '2'
+services:
+  vf:
+    build: ./VF
+    privileged: True
+    command: /usr/sbin/init   #necessary to have systemctl inside the container
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro   #necessary to have systemctl inside the container
+      - /home/ubuntu/applications_data/westlife-db/metadata.key:/etc/westlife/metadata.key
+      #- /home/ubuntu/applications_data/westlife-db/metadata.key:/home/vagrant/.westlife/metadata.key
+      - /home/ubuntu/applications_data/westlife-db/metadata.sqlite:/var/lib/westlife/metadata.sqlite
+      - /home/ubuntu/applications_data/westlife-db/vresqlite.db:/home/vagrant/.westlife/vresqlite.db
+      - ./SSO/idp-metadata.xml:/etc/httpd/mellon/idp-metadata.xml
+      - ./SSO/sp_cert.pem:/etc/httpd/mellon/sp_cert.pem
+      - ./SSO/sp_key.pem:/etc/httpd/mellon/sp_key.pem
+      - ./SSO/sp-metadata.xml:/etc/httpd/mellon/sp-metadata.xml
+    environment:
+      - SSO_DEPLOYMENT=0
+    # ALWAYS run "sudo docker-compose build" before "sudo docker-compose up -d vf"
+    #WHEN SERVICE IS UP, YOU THEN NEED TO:
+    # docker-compose exec vf /bin/bash then execute /install.sh inside the vf container
+    #Then vi /etc/httpd/conf.d/000-default.conf and add this: ServerName https://portal.westlife.eu
+    #on line 2. This is necessary for mod_mellon to work (in case SSO_DEPLOYMENT=1)
+
+  front:
+    image: nginx
+    ports: ["80:80"]
+    restart: always
+    volumes: ["./homepage:/usr/share/nginx/html","./nginx.conf:/etc/nginx/nginx.conf"]
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.35.8.0/24
